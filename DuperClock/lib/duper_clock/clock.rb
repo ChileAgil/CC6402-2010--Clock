@@ -1,5 +1,4 @@
 module DuperClock
-  class Clock
-    
+  class Clock    
   end
 end
