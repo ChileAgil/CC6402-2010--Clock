@@ -13,4 +13,4 @@ sudo gem install wxruby
 sudo gem install sinatra
   #Tuve algunos problemas aquí por lo que tuve que:
   sudo gem uninstall rack -v 1.2.1
-  sudo gem install rack -v 1.1.
+  sudo gem install rack -v 1.1.0
