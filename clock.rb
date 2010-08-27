@@ -21,5 +21,9 @@ class Clock
         time.map! {|x| Integer(x)}
         @time = TimeModel.new(time[0], time[1], time[2])
     end
+
+    def second_passed()
+        @time.second_passed
+    end
 end
 

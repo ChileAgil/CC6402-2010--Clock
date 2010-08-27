@@ -37,6 +37,12 @@ class TestClock < Test::Unit::TestCase
         end
 
     end
+
+    def test_secondpassed
+        c = Clock.new()
+        c.second_passed
+        assert_equal '00:00:01', c.to_s
+    end
     # tick
     # ver como string
 end
