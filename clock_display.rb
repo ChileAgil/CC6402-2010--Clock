@@ -12,7 +12,7 @@ class ClockDisplay < App
     
     sizer = Wx::BoxSizer.new(Wx::VERTICAL)
     
-    @label = Wx::StaticText.new(@frame, -1, '0')
+    @label = Wx::StaticText.new(@frame, -1, '')
     @boton = Wx::Button.new(@frame, -1, 'Cambiar la hora')
     font = Wx::FontData.new.get_chosen_font
     font.set_point_size(32)
