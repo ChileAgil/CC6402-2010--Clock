@@ -1,3 +1,4 @@
+require 'clock'
 require 'rubygems'
 require "wx"
 include Wx
@@ -5,7 +6,7 @@ include Wx
 class ClockDisplay < App
   # we're defining what the application is going to do when it starts
   def on_init  
-    #@clock = Clock.new
+    @clock = Clock.new
   
     @frame = Wx::Frame.new(nil, -1, 'OOA Clock')
     
