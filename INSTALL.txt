@@ -9,7 +9,7 @@ INSTALL: sudo ruby setup.rb
 #INSTALL WXRuby
 sudo gem install wxruby
 
-#INSTALL Sinatra
+#DO NOT INSTALL Sinatra
 sudo gem install sinatra
   #Tuve algunos problemas aquí por lo que tuve que:
   sudo gem uninstall rack -v 1.2.1
