@@ -1,4 +1,4 @@
-require 'TimeModel'
+require 'time_model'
 
 class Clock
 	def initialize(h=0, m=0, s=0)
