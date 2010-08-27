@@ -28,7 +28,11 @@ class ClockDisplay < App
                     OK|CANCEL, 
                     DEFAULT_POSITION)
         if @text_entry.show_modal == ID_OK
-            @clock.parse_time(@text_entry.get_value)
+            begin
+                @clock.parse_time(@text_entry.get_value)
+            rescue ArgumentError
+                puts "ERROR"
+            end
         end
     }
     
