@@ -1,5 +1,5 @@
 require 'test/unit'
-require "TimeModel.rb"
+require "time_model"
 
 class TimeModelTest < Test::Unit::TestCase
     def test_initialize
