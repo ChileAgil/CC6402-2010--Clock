@@ -1,3 +1,4 @@
+require 'clock'
 require 'rubygems'
 require "wx"
 include Wx
@@ -12,18 +13,31 @@ class ClockDisplay < App
     sizer = Wx::BoxSizer.new(Wx::VERTICAL)
     
     @label = Wx::StaticText.new(@frame, -1, '0')
+    @boton = Wx::Button.new(@frame, -1, 'Cambiar la hora')
     font = Wx::FontData.new.get_chosen_font
     font.set_point_size(32)
     font.set_weight(Wx::FONTWEIGHT_BOLD)
     @label.set_font(font)
-    sizer.add(@label, 1, Wx::ALIGN_CENTER)
+    sizer.add(@label,  0, GROW|ALL, 2)
+    sizer.add(@boton,  0, GROW|ALL, 2)
+    
+    evt_button(@boton) {
+        @text_entry=Wx::TextEntryDialog.new(@frame, 'Ingrese la nueva hora', 
+                    'bla', 
+                    '00:00:00', 
+                    OK|CANCEL, 
+                    DEFAULT_POSITION)
+        if @text_entry.show_modal == ID_OK
+            @clock.parse_time(@text_entry.get_value)
+        end
+    }
     
     @frame.set_sizer(sizer)
     @frame.show
     
     
     Wx::Timer.every(1000) {
-      @clock.update
+      @clock.second_passed
       @label.set_label(@clock.to_s)
     }
   end
