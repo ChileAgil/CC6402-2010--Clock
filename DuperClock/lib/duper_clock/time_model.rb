@@ -10,23 +10,6 @@ module DuperClock
 		
 		def increment_second
 			self.seconds = self.seconds + 1
-			
-			#begin
-			#if @values[:seconds] == 59
-			#	@values[:seconds] = 0
-			#	if @values[:minutes] == 59
-			#		@values[:minutes] = 0
-			#			if @values[:hours] == 23
-			#				@values[:hours] = 0
-			#			else
-			#				@values[:hours] += 1
-			#			end
-			#	else
-			#		@values[:minutes] += 1
-			#	end
-			#else
-			#	@values[:seconds] += 1
-			#end
 		end
 		
 		def increment_minute

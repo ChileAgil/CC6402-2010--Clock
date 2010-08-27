@@ -1,4 +1,6 @@
 # Add your own tasks in files placed in lib/tasks ending in .rake,
+$: << File.expand_path('../lib',__FILE__)
+require 'duper_clock'
 require 'rake'
 require 'rake/testtask'
 
@@ -11,4 +13,9 @@ Rake::TestTask.new(:test) do |t|
   t.libs << 'test'
   t.pattern = 'test/**/*_test.rb'
   t.verbose = true
+end
+
+desc 'Ejecutar ventana'
+task :ventana do 
+	DuperClock::Window.new.main_loop
 end
