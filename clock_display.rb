@@ -1,28 +1,63 @@
-require 'clock'
 require 'rubygems'
 require "wx"
+require 'clock'
+#require 'chrono'
 include Wx
-# a new class which derives from the Wx::App class
-class ClockDisplay < App
-  # we're defining what the application is going to do when it starts
-  def on_init  
+
+class ClockDisplay < Wx::App
+
+   def on_init
     @clock = Clock.new
-  
-    @frame = Wx::Frame.new(nil, -1, 'OOA Clock')
-    
+    #@crono = Chrono.new
+   
+     frame = Wx::Frame.new( nil, -1, 'Tabs Demo' )
+     frame.set_client_size( Wx::Size.new( 400, 180 ) )
+
+     notebook = Wx::Notebook.new( frame, -1)
+     
+     # First panel
+     
+    panel = Wx::Panel.new( notebook, -1 )
     sizer = Wx::BoxSizer.new(Wx::VERTICAL)
-    
-    @label = Wx::StaticText.new(@frame, -1, '')
-    @boton = Wx::Button.new(@frame, -1, 'Cambiar la hora')
+    panel.set_sizer sizer
+              
+    @clock_label = Wx::StaticText.new(panel, -1, '00:00:00')
+    @clock_button = Wx::Button.new(panel, -1, 'Cambiar la hora')
     font = Wx::FontData.new.get_chosen_font
     font.set_point_size(32)
     font.set_weight(Wx::FONTWEIGHT_BOLD)
-    @label.set_font(font)
-    sizer.add(@label,  0, GROW|ALL, 2)
-    sizer.add(@boton,  0, GROW|ALL, 2)
+    @clock_label.set_font(font)
+    sizer.add(@clock_label,  0, GROW|ALL, 2)
+    sizer.add(@clock_button,  0, GROW|ALL, 2)
     
-    evt_button(@boton) {
-        @text_entry=Wx::TextEntryDialog.new(@frame, 'Ingrese la nueva hora', 
+    notebook.add_page( panel, "Reloj" )
+    
+    # Second panel
+    
+    panel_cron = Wx::Panel.new( notebook, -1 )
+    sizer_cron = Wx::BoxSizer.new(Wx::VERTICAL)
+    panel_cron.set_sizer sizer_cron
+    
+    @cron_label = Wx::StaticText.new(panel_cron, -1, '00:00:00')
+    font = Wx::FontData.new.get_chosen_font
+    font.set_point_size(32)
+    font.set_weight(Wx::FONTWEIGHT_BOLD)
+    @cron_label.set_font(font)
+    sizer_cron.add(@cron_label,  0, GROW|ALL, 2)
+    
+    @cron_startstop = Wx::Button.new(panel_cron, -1, 'Start')
+    @cron_reset = Wx::Button.new(panel_cron, -1, 'Reset')
+    sizer_cron.add(@cron_startstop,  0, GROW|ALL, 2)
+    sizer_cron.add(@cron_reset,  0, GROW|ALL, 2)
+    
+    notebook.add_page( panel_cron, "Cronómetro" )
+
+
+     frame.show
+     
+     # Eventos
+     evt_button(@clock_button) {
+        @text_entry=Wx::TextEntryDialog.new(frame, 'Ingrese la nueva hora', 
                     'bla', 
                     '00:00:00', 
                     OK|CANCEL, 
@@ -36,15 +71,38 @@ class ClockDisplay < App
         end
     }
     
-    @frame.set_sizer(sizer)
-    @frame.show
+    evt_button(@cron_startstop) {
+        if (@crono.is_running)
+            @crono.stop
+            @cron_startstop.set_label('Start')
+        else
+            @crono.start
+            @cron_startstop.set_label('Stop')                 
+        end
+    }
+    evt_button(@cron_reset) {
+        @crono.reset()
+        if (@crono.is_running)
+             @cron_startstop.set_label('Stop')
+        else
+             @cron_startstop.set_label('Start') 
+        end
+    }
     
     
     Wx::Timer.every(1000) {
       @clock.second_passed
-      @label.set_label(@clock.to_s)
+      @clock_label.set_label(@clock.to_s)
+      #@crono.second_passed
+      #@cron_label.set_label(@crono.to_s)
     }
-  end
+   end
+
 end
-# and this line makes it actually do it!
-ClockDisplay.new.main_loop
+
+if __FILE__ == $0
+   ClockDisplay.new.main_loop()
+end
+
+
+
