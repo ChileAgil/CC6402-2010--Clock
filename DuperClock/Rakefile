@@ -15,12 +15,8 @@ Rake::TestTask.new(:test) do |t|
   t.verbose = true
 end
 
-desc 'Ejecutar ventana'
-task :ventana do 
-	DuperClock::Window.new.main_loop
-end
 
 desc 'Ejecutar ventana'
-task :cronometro do 
-	DuperClock::WindowCronometro.new.main_loop
+task :window do 
+	DuperClock::Window.new.main_loop
 end
