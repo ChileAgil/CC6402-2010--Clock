@@ -1,14 +1,14 @@
 require 'rubygems'
 require "wx"
 require 'clock'
-#require 'chrono'
+require 'chrono'
 include Wx
 
 class ClockDisplay < Wx::App
 
    def on_init
     @clock = Clock.new
-    #@crono = Chrono.new
+    @crono = Chrono.new
    
      frame = Wx::Frame.new( nil, -1, 'Tabs Demo' )
      frame.set_client_size( Wx::Size.new( 400, 180 ) )
@@ -93,8 +93,8 @@ class ClockDisplay < Wx::App
     Wx::Timer.every(1000) {
       @clock.second_passed
       @clock_label.set_label(@clock.to_s)
-      #@crono.second_passed
-      #@cron_label.set_label(@crono.to_s)
+      @crono.second_passed
+      @cron_label.set_label(@crono.to_s)
     }
    end
 
